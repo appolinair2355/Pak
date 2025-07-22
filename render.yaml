@@ -18,3 +18,12 @@ services:
       name: data
       mountPath: /opt/render/project/src
       sizeGB: 1
+
+      
+startCommand: python3 -m gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 --preload render_web:app
+
+envVars:
+  - key: PORT          # ← Port automatique Render.com
+    sync: false
+  - key: TELEGRAM_BOT_TOKEN
+    sync: false
