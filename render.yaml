@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: telegram-bot-webhook
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r render_requirements.txt
+    startCommand: python3 render_webhook_bot.py
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: WEBHOOK_URL
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+    healthCheckPath: /health
+    disk:
+      name: data
+      mountPath: /opt/render/project/src
+      sizeGB: 1
